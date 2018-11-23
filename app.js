@@ -1,25 +1,25 @@
-const expres = require('express');
-const bodyParser = require('body-parser');
-const user = require('./routes/user.route');
-
-/// initialize our express app
+var express = require('express');
+var cors = require('cors');
+var bodyParser = require('body-parser');
 const app = express();
+var mongoose = require('mongoose');
+var port = process.env.PORT || 5000
 
-/// set up mongoose connection
-let dev_db_url =  'mongodb://admin:admin123@ds043457.mlab.com:43457/productapp'
-let mongoDB = process.env.MONGODB_URI || dev_db_url;
-mongoose.connect(mongoDB, { useNewUrlParser: true });
-mongoose.Promise = global.Promise;
-let db = mongoose.connection;
-db.on('error', console.error.bind(console, 'MongoDB connection error:'));
-
-/// parse the incoming request bodies in middle ware
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended: false}));
-app.use('/user', user);
+app.use(cors())
+app.use(
+    bodyParser.urlencoded({
+        extended: false
+    })
+)
 
-let port = 1235;
-/// dedicating the port number 1235 and telling express app to listen to that port
+const mongoURI = 'mongodb://admin:admin123@ds043457.mlab.com:43457/productapp';
+mongoose.connect(mongoURI,{useNewUrlParser:true})
+.then(()=> console.log("MongoDB connected."))
+.catch(err => console.log(err))
+
+var Users = require('./routes/user.route');
+
 app.listen(port, ()=>{
-    console.log('Port is up and running on port number '+port);
+    console.log('App is running at the port: '+port);
 })
