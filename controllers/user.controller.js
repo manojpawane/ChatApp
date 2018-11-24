@@ -1,19 +1,11 @@
-const User = require('../models/user.model');
+const userService = require('../services/User.service');
 
-/// creates the user and save it into database
+/// call a service layer to create document for new user
 exports.user_create = function(req, res){
-    let user = new User(
-        {
-            username:req.body.name,
-            email:req.body.email,
-            password:req.body.password
-        }
-    );
+   userService.user_create(req, res);
+}
 
-    user.save(function(err){
-        if(err){
-            return next(err);
-        }
-        console.log('User added succesfully. ');
-    })
+/// call a service to login user
+exports.user_login = function(req, res){
+    userService.user_login(req, res);
 }
