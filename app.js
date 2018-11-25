@@ -23,6 +23,7 @@ app.use(
 /// routing call for user registration and login
 app.use('/user', user);
 
+/// prints the port number once connected to server
 app.listen(port, ()=>{
     console.log('App is running at the port: '+port);
 })
