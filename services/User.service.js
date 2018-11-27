@@ -3,6 +3,10 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt-nodejs');
 
 /// creates the user and save it into database
+/**
+ * @param  {} req
+ * @param  {} res
+ */
 exports.user_create =async function(req, res){
     console.log('control in services.');
     let user = new User(
@@ -50,6 +54,10 @@ exports.user_create =async function(req, res){
 }
 
 /// user login
+/**
+ * @param  {} req
+ * @param  {} res
+ */
 exports.user_login = async function(req, res){
     /// finds a email if present 
    var userDetails = await User.findOne(
