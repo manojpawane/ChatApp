@@ -5,6 +5,7 @@ const app = express();
 var mongoose = require('mongoose');
 var port = process.env.PORT || 5000
 var user = require('./routes/user.route');
+var chat = require('./routes/chat.route');
 
 /// database settings for mongo DB
 const mongoURI = 'mongodb://admin:admin123@ds043457.mlab.com:43457/productapp';
@@ -22,6 +23,9 @@ app.use(
 
 /// routing call for user registration and login
 app.use('/user', user);
+
+/// routing call for chat controller
+app.use('/chat', chat);
 
 /// prints the port number once connected to server
 app.listen(port, ()=>{

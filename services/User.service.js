@@ -8,7 +8,6 @@ const bcrypt = require('bcrypt-nodejs');
  * @param  {} res
  */
 exports.user_create =async function(req, res){
-    console.log('control in services.');
     let user = new User(
         {
             username:req.body.name,
