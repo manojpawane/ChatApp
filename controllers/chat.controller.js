@@ -8,3 +8,11 @@ const chatService = require('../services/Chat.service');
 exports.chat_singleChat = function(req, res){
    chatService.chat_singleChat(req, res);
 }
+
+exports.chat_multiChat = function(req, res){
+   chatService.chat_multiChat(req, res);
+}
+
+exports.chat_receiverMessages = function(req, res){
+   chatService.chat_receiverMessages(req, res);
+}
