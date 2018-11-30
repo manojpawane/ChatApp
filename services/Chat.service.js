@@ -24,27 +24,27 @@ exports.chat_singleChat = function (req, res) {
 exports.chat_multiChat = async function (req, res) {
     try {
         var userDetails = await User.findOne({
-            email : req.body.receiverEmail
+            email: req.body.receiverEmail
         })
-      
-        if(userDetails){
-         var chat = new Chat(
-             {
-                 senderId:req.body.senderId,
-                 receiverId:userDetails._id,
-                 message:req.body.message
-             }
-         )
-         let messageSent = await Chat.create(chat);
-         if(messageSent){
-             res.send('Sent');
-         }
-         else{
-             res.send('failed to send');
-         }
-         
+
+        if (userDetails) {
+            var chat = new Chat(
+                {
+                    senderId: req.body.senderId,
+                    receiverId: userDetails._id,
+                    message: req.body.message
+                }
+            )
+            let messageSent = await Chat.create(chat);
+            if (messageSent) {
+                res.send('Sent');
+            }
+            else {
+                res.send('failed to send');
+            }
+
         }
-        else{
+        else {
             res.send('Invalid user');
         }
     } catch (error) {
@@ -53,22 +53,22 @@ exports.chat_multiChat = async function (req, res) {
 
 }
 
-exports.chat_receiverMessages = async function(req, res){
-    var chats =await Chat.find({
-        receiverId:req.params.id
-    })
-    if(chats){
-       var message = chats[chats.length - 1];
-       console.log(message);
-       var sender =await User.findOne({
-            id:message.senderId
-       })
-       console.log(sender);
-       res.send(sender)
-     // res.send(sender.username+ ':' +message.message);
-
-    }
-    else{
-       res.send('');
+exports.chat_receiverMessages = async function (req, res) {
+    try {
+        var chats = await Chat.find({
+            receiverId: req.params.id
+        })
+        if (chats === undefined || chats.length == 0) {
+            res.send('No messages');
+        }
+        else {
+            var message = chats[chats.length - 1];
+            var sender = await User.findById({
+                _id: message.senderId
+            })
+            res.send(sender.username + ':' + message.message);
+        }
+    } catch (error) {
+        res.send(error)
     }
 }

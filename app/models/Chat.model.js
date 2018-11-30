@@ -1,15 +1,16 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
+ObjectId = Schema.ObjectId;
 let ChatSchema = new Schema(
     {
         senderId:{
-            type:String,
+            type:ObjectId,
             required:true
         },
 
         receiverId:{
-            type:String,
+            type:ObjectId,
             required:true
         },
         message:{
@@ -18,9 +19,5 @@ let ChatSchema = new Schema(
         }
     }
 )
-userSchema.virtual('email').get(function() {
-    return this._id;
-});
-
 
 module.exports = mongoose.model('Chat',ChatSchema);
