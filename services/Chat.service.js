@@ -21,6 +21,7 @@ exports.chat_singleChat = function (req, res) {
     }
 }
 
+/// is used to send messages
 exports.chat_multiChat = async function (req, res) {
     try {
         var userDetails = await User.findOne({
@@ -52,7 +53,11 @@ exports.chat_multiChat = async function (req, res) {
     }
 
 }
-
+/// This method is called when message is received
+/**
+ * @param  {} req
+ * @param  {} res
+ */
 exports.chat_receiverMessages = async function (req, res) {
     try {
         var chats = await Chat.find({
